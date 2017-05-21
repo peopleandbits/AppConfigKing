@@ -11,10 +11,7 @@ namespace AppConfigKing
         #endregion
 
         #region Fields
-        static Dictionary<string, ICmd> _Lookup = new Dictionary<string, ICmd>()
-            {
-                { "-replace", new ReplaceCmd() }
-            };
+        static Dictionary<string, Type> _Lookup = CommandLookup.GetConfig();
         #endregion
 
         #region Public API
@@ -25,8 +22,8 @@ namespace AppConfigKing
                 if (!CheckCommandArg(args))
                     throw new InvalidOperationException("Invading arguments.");
 
-                Cmd = _Lookup[args[0]];
-                Cmd.InjectParameters(args.Skip(1).ToArray());
+                var t = _Lookup[args[0]];
+                Cmd = (ICmd)Activator.CreateInstance(t, args.Skip(1).ToArray());
                 string msg = Cmd.Execute();
                 Console.WriteLine(msg);
             }

@@ -4,7 +4,6 @@ namespace AppConfigKing
 {
     public interface ICmd
     {
-        void InjectParameters(string[] prms);
         string Execute();
         bool ResultOK { get; set; }
     }
@@ -28,10 +27,7 @@ namespace AppConfigKing
 
     public class ReplaceCmd : ICmd
     {
-        public ReplacePrm Parameters { get; private set; }
-        public bool ResultOK { get; set; } = false;
-
-        public void InjectParameters(string[] prms)
+        public ReplaceCmd(params string[] prms)
         {
             try
             {
@@ -43,6 +39,9 @@ namespace AppConfigKing
             }
         }
 
+        public ReplacePrm Parameters { get; private set; }
+        public bool ResultOK { get; set; } = false;
+        
         public string Execute()
         {
             if (Parameters == null)

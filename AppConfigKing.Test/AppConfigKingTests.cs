@@ -25,23 +25,6 @@ namespace AppConfigKing.Test
             Assert.IsTrue(edited.Contains($"connectionString=\"{connStr}\""));
             Assert.IsTrue(Program.Cmd.ResultOK);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void Main_ReplaceCmd_InvalidOperation()
-        {
-            string cmd = "-replace";
-            string path = Helper.GetPath();
-            string key = "sampleDatabase";
-            string connStr = null; // this causes exception...
-
-            // act
-            Program.Main(new[] { cmd, path, key, connStr });
-
-            // assert
-            // how the fuck to test environment.exit??
-
-        }
     }
 
     [TestClass]
