@@ -45,9 +45,14 @@
     <Compile Include="AppConfigFile.cs" />
     <Compile Include="CommandLookup.cs" />
     <Compile Include="ConnectionStringEditor.cs" />
+    <Compile Include="ICmd.cs" />
+    <Compile Include="NaiveProgram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands.cs" />
+    <Compile Include="RemoveCmd.cs" />
+    <Compile Include="ReplaceCmd.cs" />
+    <Compile Include="RemovePrm.cs" />
+    <Compile Include="ReplacePrm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

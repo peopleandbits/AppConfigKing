@@ -2,29 +2,6 @@
 
 namespace AppConfigKing
 {
-    public interface ICmd
-    {
-        string Execute();
-        bool ResultOK { get; set; }
-    }
-
-    public class ReplacePrm
-    {
-        public ReplacePrm(string path, string key, string connStr)
-        {
-            if (path == null || key == null || connStr == null)
-                throw new InvalidOperationException("Invalid parameters. You'd need a path, a key and a connection string.");
-
-            Path = path;
-            Key = key;
-            ConnectionString = connStr;
-        }
-
-        public string Path { get; set; }
-        public string Key { get; set; }
-        public string ConnectionString { get; set; }
-    }
-
     public class ReplaceCmd : ICmd
     {
         public ReplaceCmd(params string[] prms)
@@ -48,7 +25,7 @@ namespace AppConfigKing
                 throw new InvalidOperationException("Parameters are missing.");
 
             var config = new AppConfigFile(Parameters.Path);
-            var cse = new ConnectionStringEditor(config.Load());
+            var cse = new ConnectionStringProcessor(config.Load());
             string edited = cse.Replace(Parameters.Key, Parameters.ConnectionString);
             config.Save(edited);
             ResultOK = true;

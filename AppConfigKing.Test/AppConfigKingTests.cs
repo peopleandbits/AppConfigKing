@@ -6,6 +6,27 @@ using System.Xml.Linq;
 namespace AppConfigKing.Test
 {
     [TestClass]
+    public class NaiveProgramTests
+    {
+        [TestMethod]
+        public void Main_ExecuteReplace()
+        {
+            string cmd = "-replace";
+            string path = Helper.GetPath();
+            string key = "sampleDatabase";
+            string connStr = "tttt";
+
+            // act
+            NaiveProgram.NaiveMain(new[] { cmd, path, key, connStr });
+
+            // assert
+            var acf = new AppConfigFile(Helper.GetPath());
+            string edited = acf.Load();
+            Assert.IsTrue(edited.Contains($"connectionString=\"{connStr}\""));
+        }
+    }
+
+    [TestClass]
     public class ProgramTests
     {
         [TestMethod]
@@ -50,12 +71,23 @@ namespace AppConfigKing.Test
         public void ReplaceConnectionString()
         {
             var acf = new AppConfigFile(Helper.GetPath());
-            var cse = new ConnectionStringEditor(acf.Load());
+            var cse = new ConnectionStringProcessor(acf.Load());
             string key = "sampleDatabase";
             string connStr = "kkkk";
 
             string edited = cse.Replace(key, connStr);
             Assert.IsTrue(edited.Contains($"connectionString=\"{connStr}\""));
+        }
+
+        [TestMethod]
+        public void RemoveConnectionString()
+        {
+            var acf = new AppConfigFile(Helper.GetPath());
+            var cse = new ConnectionStringProcessor(acf.Load());
+            string key = "sampleDatabase";
+            
+            string edited = cse.Remove(key);
+            Assert.IsTrue(!edited.Contains($"\"key\""));
         }
     }
 
