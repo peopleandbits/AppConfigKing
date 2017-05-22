@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="AppConfigFile.cs" />
     <Compile Include="CommandLookup.cs" />
-    <Compile Include="ConnectionStringEditor.cs" />
+    <Compile Include="ConnectionStringProcessor.cs" />
     <Compile Include="ICmd.cs" />
     <Compile Include="NaiveProgram.cs" />
     <Compile Include="Program.cs" />
